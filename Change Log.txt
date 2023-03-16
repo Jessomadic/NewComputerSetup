@@ -1,0 +1,32 @@
+1.0 - Release
+
+
+
+1.1 
+
+Features and Bug Fixes
+
+    - Added a function to also uninstall Norton if found during scans
+    
+    - Added a loop for the request of Computer rename so you must answer Yes Or No or it will ask again instead of crashing. 
+
+    - Added a loop for the request of Windows 11 Install so you must answer Yes Or No or it will ask again instead of crashing.
+    
+    - Will Delete the Windows Update Folders before the restart to prevent any Windows 10 Updates from being carried over to Windows 11.
+
+    - Added a funtion to skip Computer rename in case it's not needed - If you click anything that isn't 1 or 2 it will loop back to the top for you to make a choice
+
+    - Removed some base stuff from the installer so it's a lighter package (Removed FireFox and Google Drive)
+
+
+
+
+1.2
+
+Features and Bug Fixes
+
+	- Fixed the Windows update Folder deletion so that it doesn't say the folder is in use anymore by stopping the wuauserv service
+	- Added folder deletion for "PostRebootEventCache.V2" Folder as well as "SLS" Folder
+	
+   
+    
