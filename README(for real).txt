@@ -1,8 +1,8 @@
 There are a few things you need to know before you get up and running
 
-1)Run the .bat file as admin. If you don't some Ninite stuff won't install and the computer name will not change
+1)Run the ScriptCreation and Move.bat file as admin. This will take all the files in the folder and move them to the STI folder on the C: drive. If there isn't one it will create one.
 2)DO NOT change the name of the folder the script looks for "Newinstall" and if it's changed it won't know where to find the files
-3)(most likely already are but) Run this from a USB drive. For some reason, the command I used to find the file doesn't like coming from the C Drive 
+3)As stated above the script now runs from the C:\STI folder.
 4)Profit
 
 
@@ -27,6 +27,8 @@ VLC
 Foxit Reader
 LibreOffice
 
+It will then set Chrome as the default browser for both the current user and any user created after this point.
+
 It then will look for any Mcafee programs in 3 locations
 
 C:\Program Files\McAfee
@@ -37,9 +39,6 @@ There is no way to make this uninstaller silent that is the cause of Mcafee bein
 It will then prompt you for a new computer name
 Make sure you follow the correct format for that client so that when RMM is installed (this script does not do that) it isn't loaded incorrectly
 Even if it looks like it errored out as long as you run the script as admin and don't have another pending computer name change it will work
-
-It then will scan the computer for Windows Updates
-While it should find them on its own you will still have to go install them manually this just saves the time of having to wait for them to be found
 
 You will then be prompted with a Windows 11 installer prompt
 If you are setting up a new computer you will press 1(Yes)

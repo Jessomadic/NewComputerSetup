@@ -27,6 +27,27 @@ Features and Bug Fixes
 
 	- Fixed the Windows update Folder deletion so that it doesn't say the folder is in use anymore by stopping the wuauserv service
 	- Added folder deletion for "PostRebootEventCache.V2" Folder as well as "SLS" Folder
+
+
+1.3
+
+Features and Bug Fixes
+
+Oh boy where to start
+
+	-Added the ability for the script to run from the C: Drive now, To work correctly the "ScriptCreation and Move.bat" Script is the one you need to run now
+	-Scans to make sure Chrome is installed after Ninite is installed
+	-Sets Chrome as the default browser for both current and all future users
+	-Added Malwarebytes removal tool
+	-Made it so that PCHealthCheck App doesn't open on screen and doesn't open a random Command Prompt Window
+	-PCHealthCheck App closes itself once the checks are completed
+	-Automated the PCHeathCheck App Checks
+	-Changed the text that displays when Windows 11 is downloading and installing to make it more understanding about what's happening
+	-Changed the timer for the Windows 11 completion scan from 60 seconds to 180 seconds as to not spam the system with scans
+	-Have more Windows Updates folders removed to make the Windows 10 updates not move over to Windows 11 they are the following
+	-DataStore,Download,PostRebootEventCache.V2,ScanFile,SLS,Reportingevents.log,%temp%
+	-Added a Function to install the generic RMM agent, This does require user input.
+
 	
    
     
