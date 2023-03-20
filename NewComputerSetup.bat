@@ -105,10 +105,10 @@ Echo Do you need to rename the computer?
 Echo Please Type 1 for Yes or 2 For No
 Echo 1. Yes
 Echo 2. No
-Set /p choice=Enter Your Choice:
-if %choice% == 1 (
+Set /p rename=Enter Your Choice:
+if %rename% == 1 (
 	goto :ComputerRename
-) else if %choice% == 2 (
+) else if %rename% == 2 (
 	Goto :agentinstallprompt
 ) else (goto :Computerrenamequestion
 )
