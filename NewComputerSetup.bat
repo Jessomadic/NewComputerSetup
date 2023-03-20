@@ -1,4 +1,5 @@
-@echo off
+@echo Off
+
 
  net stop wuauserv
  net stop bits
@@ -39,7 +40,6 @@ if exist "C:\Program Files (x86)\Google\Chrome\Application\" (
 %Basedir%\Newinstall\SetDefaultBrowser\setdefaultbrowser.exe chrome delay=100
 reg load HKEY_USERS\TEMP "C:\Users\default\ntuser.dat"
 reg add HKEY_USERS\TEMP\Software\Microsoft\Windows\CurrentVersion\RunOnce /v SetDefaultBrowser /d "%basedir%\NewInstall\SetDefaultBrowser\setdefaultbrowser.exe chrome delay=200" /f
-reg unload HKEY_USERS\TEMP
 Timeout 5
 
 rem Uninstall McAfee
@@ -136,14 +136,19 @@ if %NameChange% == 1 (
 rem Change the computer name
 wmic computersystem where name="%OLD_COMPUTER_NAME%" call rename name="%NEW_COMPUTER_NAME%"
 
+
+rem This line doesn't matter for non-employees you can edit it to allow whatever program/command to run a single time upon next startup (password changes,program installs,etc)
 :agentinstallprompt
 Echo Do you need to Install an Agent for this Computer?
 Echo Please Type 1 for Yes or 2 For No
 Echo 1. Yes
 Echo 2. No
 Set /p choice=Enter Your Choice:
-if %choice% == 1 (
-	goto :AgentInstall
+if %choice% == 1 (	
+reg add HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce /v RMMAgent /d "%basedir%\NewInstall\RMMAgentInstall.exe" /f
+Timeout 5
+goto :Windows11install
+rem goto :AgentInstall
 ) else if %choice% == 2 (
 	Goto :Windows11Install
 ) else (goto :Windows11Install
@@ -164,7 +169,7 @@ if %Windowsinstall% == 1 (
 timeout 20
 taskkill /im pchealthcheck.exe /f
 ) else if %Windowsinstall% == 2 (
-	goto :EOF
+	goto :SystemRestart
 ) else (goto :Windows11Install
   echo Skipping
 )
@@ -219,6 +224,23 @@ if "%tempfile%" == "INFO: No tasks are running which match the specified criteri
   timeout 10
   shutdown -f -r -t 20
 )
+
+:SystemRestart
+Echo Do you need to restart this Computer?
+Echo Please Type 1 for Yes or 2 For No
+Echo 1. Yes
+Echo 2. No
+Set /p choice=Enter Your Choice:
+if %choice% == 1 (	
+shutdown -f -r -t 10
+Timeout 5
+rem goto :AgentInstall
+) else if %choice% == 2 (
+goto :EOF
+)
+
+
+:PasswordSet
 
 :EOF
 
