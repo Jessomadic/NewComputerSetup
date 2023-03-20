@@ -169,7 +169,7 @@ if %Windowsinstall% == 1 (
 timeout 20
 taskkill /im pchealthcheck.exe /f
 ) else if %Windowsinstall% == 2 (
-	goto :SystemRestart
+	goto :PasswordSet
 ) else (goto :Windows11Install
   echo Skipping
 )
@@ -225,6 +225,37 @@ if "%tempfile%" == "INFO: No tasks are running which match the specified criteri
   shutdown -f -r -t 20
 )
 
+:PasswordSet
+Echo Do you need to Set a password for an acct?
+Echo Please Type 1 for Yes or 2 For No
+Echo 1. Yes
+Echo 2. No
+Set /p choice=Enter Your Choice:
+if %choice% == 1 (
+net user
+Echo Please Enter the User from the list
+Set /p Username=Enter Your Choice:
+Echo Please Enter the Password you want to set for the User
+Set /p Password=Enter Your Choice:
+Net User %Username% %password%
+) else if %choice% == 2 (
+goto :SystemRestart
+)
+
+:localadmin
+Echo Does this user need to be a local admin?
+Echo Please Type 1 for Yes or 2 For No
+Echo 1. Yes
+Echo 2. No
+Set /p Admin=Enter Your Choice:
+if %Admin% == 1(
+net localgroup administrators %Username% /add
+Timeout 5
+goto :SystemRestart
+) else if %choice% == 2 (
+goto :SystemRestart
+)
+
 :SystemRestart
 Echo Do you need to restart this Computer?
 Echo Please Type 1 for Yes or 2 For No
@@ -238,9 +269,6 @@ rem goto :AgentInstall
 ) else if %choice% == 2 (
 goto :EOF
 )
-
-
-:PasswordSet
 
 :EOF
 
