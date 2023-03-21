@@ -1,11 +1,11 @@
 @echo Off
 
 
- net stop wuauserv
- net stop bits
+net stop wuauserv
+net stop bits
  
- set Basedir=C:\STI
- rem set Basedir=%~d0
+set Basedir=C:\STI
+rem set Basedir=%~d0
 
 rem Set the active power profile to "balanced"
 powercfg /setactive 381b4222-f694-41f0-9685-ff5bb260df2e
@@ -220,9 +220,9 @@ if "%tempfile%" == "INFO: No tasks are running which match the specified criteri
   rmdir /Q /S "%windir%\SoftwareDistribution\SLS\
   del /Q /F "C:\Windows\SoftwareDistribution\ReportingEvents.log"
   del /Q /F "C:\Users\%username%\AppData\Local\Temp\*"
-  rmdir /Q /S "C:\Windows.old\"
+  reg add HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce /v Windowsoldclear /d rmdir /Q /S "C:\Windows.old\" /f
   timeout 10
-  shutdown -f -r -t 20
+  goto :PasswordSet
 )
 
 :PasswordSet
@@ -231,15 +231,25 @@ Echo Please Type 1 for Yes or 2 For No
 Echo 1. Yes
 Echo 2. No
 Set /p choice=Enter Your Choice:
-if %choice% == 1 (
-net user
-Echo Please Enter the User from the list
-Set /p Username=Enter Your Choice:
-Echo Please Enter the Password you want to set for the User
-Set /p Password=Enter Your Choice:
-Net User %Username% %password%
-) else if %choice% == 2 (
-goto :SystemRestart
+	if %choice% == 1 (
+		net user
+		Echo Please Enter the User from the list
+		Set /p Username=Enter Your Choice:
+		Echo Please Enter the Password you want to set for the User
+		Set /p Password=Enter Your Choice:
+		echo %Password%
+		echo Is this the correct password?
+		Echo Please Type 1 for Yes or 2 For No
+		Echo 1. Yes
+		Echo 2. No
+		Set /p answer=Enter Your Choice:
+		if %answer% == 1 (
+			Net User %Username% %password%
+			goto :localadmin
+) 		else if %answer% == 2 (
+			goto :PasswordSet
+) 		else if %choice% == 2 (
+		goto :SystemRestart
 )
 
 :localadmin
@@ -265,7 +275,6 @@ Set /p choice=Enter Your Choice:
 if %choice% == 1 (	
 shutdown -f -r -t 10
 Timeout 5
-rem goto :AgentInstall
 ) else if %choice% == 2 (
 goto :EOF
 )
