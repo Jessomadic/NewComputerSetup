@@ -237,20 +237,23 @@ Set /p choice=Enter Your Choice:
 		Set /p Username=Enter Your Choice:
 		Echo Please Enter the Password you want to set for the User
 		Set /p Password=Enter Your Choice:
-		echo %Password%
-		echo Is this the correct password?
-		Echo Please Type 1 for Yes or 2 For No
-		Echo 1. Yes
-		Echo 2. No
-		Set /p answer=Enter Your Choice:
-		if %answer% == 1 (
-			Net User %Username% %password%
-			goto :localadmin
-) 		else if %answer% == 2 (
-			goto :PasswordSet
-) 		else if %choice% == 2 (
+		echo %Password%		
+	) else if %choice% == 2 (
 		goto :SystemRestart
-)
+	)
+
+:passwordcheck
+echo Is this the correct password?
+Echo Please Type 1 for Yes or 2 For No
+Echo 1. Yes
+Echo 2. No
+Set /p answer=Enter Your Choice:
+	if %answer% == 1 (
+		Net User %Username% %password%
+		goto :localadmin
+	) else if %answer% == 2 (
+		goto :PasswordSet
+	)
 
 :localadmin
 Echo Does this user need to be a local admin?
@@ -258,13 +261,14 @@ Echo Please Type 1 for Yes or 2 For No
 Echo 1. Yes
 Echo 2. No
 Set /p Admin=Enter Your Choice:
-if %Admin% == 1(
-net localgroup administrators %Username% /add
-Timeout 5
-goto :SystemRestart
+if %Admin% == 1 (
+	net localgroup administrators %Username% /add
+	Timeout 5
+	goto :SystemRestart
 ) else if %choice% == 2 (
-goto :SystemRestart
+	goto :SystemRestart
 )
+
 
 :SystemRestart
 Echo Do you need to restart this Computer?
