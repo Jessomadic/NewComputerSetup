@@ -2,8 +2,11 @@
 There are a few things you need to know before you get up and running
 
 1)Run the .bat file as admin. If you don't some Ninite stuff won't install and the computer name will not change
+
 2)DO NOT change the name of the folder the script looks for "Newinstall" and if it's changed it won't know where to find the files
+
 3)(most likely already are but) Run this from a USB drive. For some reason, the command I used to find the file doesn't like coming from the C Drive 
+
 4)Profit
 
 
